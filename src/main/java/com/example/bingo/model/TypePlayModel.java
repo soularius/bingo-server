@@ -10,20 +10,20 @@ package com.example.bingo.model;
  */
 public class TypePlayModel {
     
-    private String name;
+    private String mode;
 
     public TypePlayModel() {
     }
 
-    public TypePlayModel(String name) {
-      this.name = name;
+    public TypePlayModel(String mode) {
+      this.mode = mode;
     }
 
-    public String getName() {
-      return name;
+    public String getMode() {
+      return mode;
     }
 
-    public void setName(String name) {
-      this.name = name;
+    public void setMode(String type) {
+      this.mode = type;
     }
 }

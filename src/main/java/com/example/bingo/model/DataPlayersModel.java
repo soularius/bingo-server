@@ -8,18 +8,8 @@ package com.example.bingo.model;
  *
  * @author ADMIN
  */
-public class Greeting {
-
-    private String content;
-
-    public Greeting() {
-    }
-
-    public Greeting(String content) {
-        this.content = content;
-    }
-
-    public String getContent() {
-        return content;
-    }
+public class DataPlayersModel {
+    public String idSession;
+    public String mode;
+    public String name;
 }

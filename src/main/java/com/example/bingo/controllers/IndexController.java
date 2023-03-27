@@ -20,8 +20,7 @@ public class IndexController {
     
     @GetMapping({"/index", "/", "/home", "index"})
     public String index(Model modelo) {
-        WebSocketEventListener listClients = new WebSocketEventListener();
-        
+        WebSocketEventListener listClients = new WebSocketEventListener();        
         List<String> bingoclients = new ArrayList<>();
         bingoclients = listClients.getConnectedClients();
         modelo.addAttribute("listClients", bingoclients);
