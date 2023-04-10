@@ -9,7 +9,52 @@ package com.example.bingo.model;
  * @author ADMIN
  */
 public class DataPlayersModel {
-    public String idSession;
-    public String mode;
-    public String name;
+    private String idSession;
+    private String uuid;
+    private String mode;
+    private String name;
+    
+    public DataPlayersModel() {
+    }
+    
+    public DataPlayersModel(String idSession, String mode, String name, String uuid) {
+        this.idSession = idSession;
+        this.mode = mode.toUpperCase();
+        this.name = name;
+        this.uuid = uuid;
+    }
+
+    public String getIdSession() {
+        return idSession;
+    }
+
+    public void setIdSession(String idSession) {
+        this.idSession = idSession;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode.toUpperCase();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+    
+    
 }

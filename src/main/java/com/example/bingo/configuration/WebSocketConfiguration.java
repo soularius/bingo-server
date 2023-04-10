@@ -4,20 +4,17 @@
  */
 package com.example.bingo.configuration;
 
+import com.example.bingo.component.CustomHandshakeInterceptor;
 import com.example.bingo.model.AllowedClients;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
@@ -28,28 +25,32 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
  */
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer { 
-    
+public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
+
     private final ResourceLoader resourceLoader;
 
     public WebSocketConfiguration(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
     }
-    
+
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-       List<String> allowedOrigins = allowedOriginsList();
-        registry.addEndpoint("/gs-guide-websocket").setAllowedOrigins(allowedOrigins.toArray(new String[allowedOrigins.size()])).withSockJS();
+        List<String> allowedOrigins = allowedOriginsList();
+        registry.addEndpoint("/gs-guide-websocket")
+                .setAllowedOrigins(allowedOrigins.toArray(new String[allowedOrigins.size()]))
+                .addInterceptors(new CustomHandshakeInterceptor())
+                .withSockJS();
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.setApplicationDestinationPrefixes("/app"); 
-        config.enableSimpleBroker("/topic", "/queue"); 
+        config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/topic", "/queue");
+        config.setUserDestinationPrefix("/topic/user");
     }
-    
+
     private List<String> allowedOriginsList() {
-         ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
         List<String> allowedOrigins = Collections.emptyList();
         try {
             Resource resource = new ClassPathResource("static/json/allowed-clients.json");

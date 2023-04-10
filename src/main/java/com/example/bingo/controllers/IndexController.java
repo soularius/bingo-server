@@ -4,12 +4,15 @@
  */
 package com.example.bingo.controllers;
 
+import com.example.bingo.component.GlobalData;
 import com.example.bingo.component.WebSocketEventListener;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 /**
  *
@@ -20,10 +23,9 @@ public class IndexController {
     
     @GetMapping({"/index", "/", "/home", "index"})
     public String index(Model modelo) {
-        WebSocketEventListener listClients = new WebSocketEventListener();        
-        List<String> bingoclients = new ArrayList<>();
-        bingoclients = listClients.getConnectedClients();
-        modelo.addAttribute("listClients", bingoclients);
+        WebSocketEventListener listClients = new WebSocketEventListener();
+        
+        modelo.addAttribute("clients_players", GlobalData.clientsPlayers.getClients());
         return "index";
     }
 }
