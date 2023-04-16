@@ -80,4 +80,14 @@ public class ClientsModel {
             return null; // Manejo del error si el índice está fuera del rango
         }
     }
+    
+    public boolean getValidClients() {
+        int validCount = 0;
+        for (DataPlayersModel client : clients) {
+            if (client.isValid()) {
+                validCount++;
+            }
+        }
+        return clients.size() == validCount;
+    }
 }

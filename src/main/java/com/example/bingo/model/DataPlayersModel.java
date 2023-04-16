@@ -56,5 +56,8 @@ public class DataPlayersModel {
         this.uuid = uuid;
     }
     
+    public boolean isValid() {
+        return idSession != null && uuid != null && mode != null && name != null;
+    }
     
 }

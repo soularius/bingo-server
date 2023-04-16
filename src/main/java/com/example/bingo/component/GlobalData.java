@@ -16,4 +16,5 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 @Component
 public class GlobalData {
     public static ClientsModel clientsPlayers = new ClientsModel();
+    public static int qtyMinClients = 0;
 }

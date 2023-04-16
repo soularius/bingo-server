@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Collections;
@@ -20,7 +21,7 @@ import java.util.Collections;
  * @author ADMIN
  */
 
-@WebFilter(urlPatterns = "/*")
+@WebFilter(urlPatterns = "/*", asyncSupported = true)
 public class WebSocketFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

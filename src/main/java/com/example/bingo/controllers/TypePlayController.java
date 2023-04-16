@@ -33,6 +33,9 @@ public class TypePlayController {
 
     @Autowired
     private ObjectMapper objectMapper;
+    
+    @Autowired
+    private SseController sseController;
 
     @MessageMapping("/type-play")
     @SendTo("/topic/greetings")
@@ -63,5 +66,6 @@ public class TypePlayController {
             messagingTemplate.convertAndSendToUser(sessionId, "/responses", response);
             System.out.println("[SERVER] Message ERROR sent to client: " + objectMapper.writeValueAsString(response));  
         }
+        sseController.sendEvent("clientSendType");
     }
 }

@@ -47,5 +47,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
             </div>
         </section>
+        <script>
+            window.addEventListener("load", function () {
+                const source = new EventSource("/sse");
+                source.onmessage = function (event) {
+                    console.log("[EVENT] Received event: ", event);
+                    console.log("[EVENT] Received event data: ", event.data);
+                    location.reload();
+                };
+            });
+        </script>
     </body>
 </html>
