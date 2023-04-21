@@ -64,11 +64,28 @@ public class BingoEventsPlayers {
                         System.out.println("[SERVER] Error");
                         Logger.getLogger(WebSocketEventListener.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    // Se generan los tableros
+                    client.initTableBingo();
+                    calculateTypePlay();
                 }
             }            
             onComplete.accept(GlobalData.clientsPlayers.getClients().size() > GlobalData.qtyMinClients && GlobalData.clientsPlayers.getValidClients());
             
         }, 1, TimeUnit.MINUTES);
         return scheduledTask;
+    }
+
+    protected void calculateTypePlay() {
+        int qtyFull = 0;
+        int qtyNormal = 0;
+        for (int i = 0; i < GlobalData.clientsPlayers.getClients().size(); i++) {
+            DataPlayersModel client = GlobalData.clientsPlayers.getClientByIndex(i);
+            if("FULL".equals(client.getMode())) {
+                qtyFull ++;
+            } else {
+                qtyNormal ++;
+            }
+        }        
+        GlobalData.typePlay = qtyFull>= qtyNormal ? "FULL" : "NORMAL";
     }
 }

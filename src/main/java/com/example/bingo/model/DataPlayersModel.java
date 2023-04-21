@@ -13,6 +13,8 @@ public class DataPlayersModel {
     private String uuid;
     private String mode;
     private String name;
+    private BingoTableModel tableBingo;
+    private Boolean acceptTable;
     
     public DataPlayersModel() {
     }
@@ -56,8 +58,24 @@ public class DataPlayersModel {
         this.uuid = uuid;
     }
     
+    public void initTableBingo() {        
+        this.tableBingo = new BingoTableModel();
+    }
+
+    public BingoTableModel getTableBingo() {
+        return tableBingo;
+    }
+    
     public boolean isValid() {
         return idSession != null && uuid != null && mode != null && name != null;
     }
+
+    public Boolean getAcceptTable() {
+        return acceptTable;
+    }
+
+    public void setAcceptTable(Boolean acceptTable) {
+        this.acceptTable = acceptTable;
+    }   
     
 }

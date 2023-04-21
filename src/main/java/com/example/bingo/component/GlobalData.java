@@ -17,4 +17,9 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 public class GlobalData {
     public static ClientsModel clientsPlayers = new ClientsModel();
     public static int qtyMinClients = 0;
+    public static int widthTable = 5;
+    public static int heightTable = 5;
+    public static int minNumber = 1;
+    public static int maxNumber = 75;
+    public static String typePlay = null;
 }

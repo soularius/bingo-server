@@ -12,6 +12,7 @@ public class ResponseModel {
     private String status;
     private String message;
     private String type;
+    private String other;
     
     public ResponseModel() {
     }
@@ -20,6 +21,13 @@ public class ResponseModel {
         this.status = status;
         this.message = message;
         this.type = type;
+    }
+
+    public ResponseModel(String status, String message, String type, String other) {
+        this.status = status;
+        this.message = message;
+        this.type = type;
+        this.other = other;
     }
 
     public String getStatus() {
@@ -44,5 +52,13 @@ public class ResponseModel {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
     }
 }
