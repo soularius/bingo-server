@@ -39,6 +39,19 @@ public class BingoEventsPlayers {
     @Autowired
     private SseController sseController;
 
+    protected void calculateTypePlay() {
+        int qtyFull = 0;
+        int qtyNormal = 0;
+        for (int i = 0; i < GlobalData.clientsPlayers.getClients().size(); i++) {
+            DataPlayersModel client = GlobalData.clientsPlayers.getClientByIndex(i);
+            if("FULL".equals(client.getMode())) {
+                qtyFull ++;
+            } else {
+                qtyNormal ++;
+            }
+        }        
+        GlobalData.typePlay = qtyFull>= qtyNormal ? "FULL" : "NORMAL";
+    }
 
     public ScheduledFuture<?> startGameCountdown(AtomicBoolean countdownStarted, ScheduledFuture<?> scheduledTask, Consumer<Boolean> onComplete) {
         
@@ -75,17 +88,38 @@ public class BingoEventsPlayers {
         return scheduledTask;
     }
 
-    protected void calculateTypePlay() {
-        int qtyFull = 0;
-        int qtyNormal = 0;
-        for (int i = 0; i < GlobalData.clientsPlayers.getClients().size(); i++) {
-            DataPlayersModel client = GlobalData.clientsPlayers.getClientByIndex(i);
-            if("FULL".equals(client.getMode())) {
-                qtyFull ++;
-            } else {
-                qtyNormal ++;
-            }
-        }        
-        GlobalData.typePlay = qtyFull>= qtyNormal ? "FULL" : "NORMAL";
+    public ScheduledFuture<?> playGameCountdown(AtomicBoolean countdownStarted, ScheduledFuture<?> scheduledTask, Consumer<Boolean> onComplete) {
+        
+        if (scheduledTask != null && !scheduledTask.isDone()) {
+            scheduledTask.cancel(false);
+            System.out.println("[SERVER] Restart scheduledTask");
+        }
+        
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);        
+        scheduledTask = scheduler.schedule(() -> {
+            System.out.println(GlobalData.clientsPlayers.getValidClientsTableAccept());
+            if (GlobalData.clientsPlayers.getClients().size() > GlobalData.qtyMinClients && GlobalData.clientsPlayers.getValidClientsTableAccept()) {
+                ResponseModel response = new ResponseModel("OK", "play", "play_go");
+                System.out.println("Sheduled exe, QTY clients: " + GlobalData.clientsPlayers.getClients().size());
+                for (int i = 0; i < GlobalData.clientsPlayers.getClients().size(); i++) {
+                    DataPlayersModel client = GlobalData.clientsPlayers.getClientByIndex(i);
+                    if(client.getAcceptTable()) {
+                        String connect_id = client.getUuid() == null ? client.getIdSession() : client.getUuid();
+                        messagingTemplate.convertAndSendToUser(connect_id, "/responses", response);
+
+                        try {
+                            System.out.println("[SERVER] Message sent to client: " + objectMapper.writeValueAsString(response));
+                        } catch (JsonProcessingException ex) {
+                            System.out.println("[SERVER] Error");
+                            Logger.getLogger(WebSocketEventListener.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    
+                    }
+                }
+            }            
+            onComplete.accept(GlobalData.clientsPlayers.getClients().size() > GlobalData.qtyMinClients && GlobalData.clientsPlayers.getValidClients());
+            
+        }, 1, TimeUnit.MINUTES);
+        return scheduledTask;
     }
 }

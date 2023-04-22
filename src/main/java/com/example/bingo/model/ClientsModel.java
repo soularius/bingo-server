@@ -90,4 +90,14 @@ public class ClientsModel {
         }
         return clients.size() == validCount;
     }
+    
+    public boolean getValidClientsTableAccept() {
+        int validCount = 0;
+        for (DataPlayersModel client : clients) {
+            if (client.getAcceptTable()) {
+                validCount++;
+            }
+        }
+        return clients.size() == validCount;
+    }
 }

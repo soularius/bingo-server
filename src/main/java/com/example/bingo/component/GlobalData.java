@@ -5,6 +5,7 @@
 package com.example.bingo.component;
 
 import com.example.bingo.model.ClientsModel;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -22,4 +23,7 @@ public class GlobalData {
     public static int minNumber = 1;
     public static int maxNumber = 75;
     public static String typePlay = null;
+    public static String[] alphaBingo = new String[]{"B", "I", "N", "G", "O"};
+    public static List<Integer> numberGenerate;
+    public static List<String> alphaBingoGenerate;
 }

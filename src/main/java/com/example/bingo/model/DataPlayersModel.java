@@ -14,7 +14,7 @@ public class DataPlayersModel {
     private String mode;
     private String name;
     private BingoTableModel tableBingo;
-    private Boolean acceptTable;
+    private boolean acceptTable;
     
     public DataPlayersModel() {
     }
@@ -24,6 +24,7 @@ public class DataPlayersModel {
         this.mode = mode.toUpperCase();
         this.name = name;
         this.uuid = uuid;
+        this.acceptTable = false;
     }
 
     public String getIdSession() {
@@ -70,12 +71,12 @@ public class DataPlayersModel {
         return idSession != null && uuid != null && mode != null && name != null;
     }
 
-    public Boolean getAcceptTable() {
+    public boolean getAcceptTable() {
         return acceptTable;
     }
 
     public void setAcceptTable(Boolean acceptTable) {
         this.acceptTable = acceptTable;
-    }   
+    }
     
 }
