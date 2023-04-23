@@ -23,8 +23,8 @@ public class GlobalData {
     public static int widthTable = 5;
     public static int heightTable = 5;
     public static int minNumber = 1;
-    public static int maxNumber = 5;
-    //public static int maxNumber = 75;
+    //public static int maxNumber = 5;
+    public static int maxNumber = 75;
     public static String typePlay = null;
     public static String[] alphaBingo = new String[]{"B", "I", "N", "G", "O"};
     public static List<Integer> numberGenerate = new ArrayList<>();

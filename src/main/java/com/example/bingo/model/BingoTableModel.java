@@ -51,9 +51,9 @@ public class BingoTableModel {
                     table[i][j] = 0;
                 } else {
                     int randomNumber;
-                    //do {
+                    do {
                         randomNumber = random.nextInt(GlobalData.maxNumber - GlobalData.minNumber + 1) + GlobalData.minNumber;
-                    //} while (usedNumbers.contains(randomNumber));
+                    } while (usedNumbers.contains(randomNumber));
 
                     usedNumbers.add(randomNumber);
                     table[i][j] = randomNumber;
