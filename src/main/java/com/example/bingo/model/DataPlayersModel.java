@@ -15,6 +15,8 @@ public class DataPlayersModel {
     private String name;
     private BingoTableModel tableBingo;
     private boolean acceptTable;
+    private boolean numberLive;
+    private boolean gameOver;
     
     public DataPlayersModel() {
     }
@@ -25,6 +27,8 @@ public class DataPlayersModel {
         this.name = name;
         this.uuid = uuid;
         this.acceptTable = false;
+        this.numberLive = true;
+        this.gameOver = false;
     }
 
     public String getIdSession() {
@@ -75,8 +79,27 @@ public class DataPlayersModel {
         return acceptTable;
     }
 
-    public void setAcceptTable(Boolean acceptTable) {
+    public boolean isAcceptTable() {
+        return acceptTable;
+    }
+
+    public void setAcceptTable(boolean acceptTable) {
         this.acceptTable = acceptTable;
     }
-    
+
+    public boolean isNumberLive() {
+        return numberLive;
+    }
+
+    public void setNumberLive(boolean numberLive) {
+        this.numberLive = numberLive;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
 }

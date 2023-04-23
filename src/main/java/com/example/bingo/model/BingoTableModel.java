@@ -51,9 +51,9 @@ public class BingoTableModel {
                     table[i][j] = 0;
                 } else {
                     int randomNumber;
-                    do {
+                    //do {
                         randomNumber = random.nextInt(GlobalData.maxNumber - GlobalData.minNumber + 1) + GlobalData.minNumber;
-                    } while (usedNumbers.contains(randomNumber));
+                    //} while (usedNumbers.contains(randomNumber));
 
                     usedNumbers.add(randomNumber);
                     table[i][j] = randomNumber;
@@ -79,4 +79,15 @@ public class BingoTableModel {
         }
     }
 
+    public int[][] getTablePlay() {
+        return tablePlay;
+    }
+
+    public void setTablePlay(int[][] tablePlay) {
+        this.tablePlay = tablePlay;
+    }
+
+    public void setTablePlayScale(int x, int y, int value) {
+        this.tablePlay[x][y] = value;
+    }
 }

@@ -84,7 +84,7 @@ public class BingoEventsPlayers {
             }            
             onComplete.accept(GlobalData.clientsPlayers.getClients().size() > GlobalData.qtyMinClients && GlobalData.clientsPlayers.getValidClients());
             
-        }, 1, TimeUnit.MINUTES);
+        }, 3, TimeUnit.SECONDS);
         return scheduledTask;
     }
 
@@ -119,7 +119,7 @@ public class BingoEventsPlayers {
             }            
             onComplete.accept(GlobalData.clientsPlayers.getClients().size() > GlobalData.qtyMinClients && GlobalData.clientsPlayers.getValidClients());
             
-        }, 1, TimeUnit.MINUTES);
+        }, 3, TimeUnit.SECONDS);
         return scheduledTask;
     }
 }

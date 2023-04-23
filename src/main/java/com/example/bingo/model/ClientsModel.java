@@ -4,6 +4,7 @@
  */
 package com.example.bingo.model;
 
+import com.example.bingo.component.GlobalData;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,5 +100,22 @@ public class ClientsModel {
             }
         }
         return clients.size() == validCount;
+    }
+    
+    
+    public boolean checkAllClientsNumberLive() {
+        for (DataPlayersModel client : clients) {
+            System.out.println("[SERVER] Number is live: " + client.isNumberLive());
+            if (!client.isNumberLive()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public void restartNumbersLives() {
+        for (DataPlayersModel client : clients) {
+            client.setNumberLive(false);
+        }
     }
 }

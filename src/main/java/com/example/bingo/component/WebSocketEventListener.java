@@ -68,6 +68,9 @@ public class WebSocketEventListener {
         connectedClients.remove(sessionId);
 
         GlobalData.clientsPlayers.deleteClient(sessionId);
+        if(GlobalData.clientsPlayers.getClients().isEmpty()) {
+            GlobalData.restarAll();
+        }
         sseController.sendEvent("clientDisconnected");
     }
 
