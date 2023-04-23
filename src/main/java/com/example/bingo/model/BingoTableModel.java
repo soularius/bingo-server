@@ -32,7 +32,7 @@ public class BingoTableModel {
     public void setTable(int[][] table) {
         this.table = table;
     }
-    
+
     public void refreshTable() {
         initializeTable();
         copyTableToTablePlay();
@@ -42,7 +42,20 @@ public class BingoTableModel {
         int width = GlobalData.widthTable;
         int height = GlobalData.heightTable;
 
-        Set<Integer> usedNumbers = new HashSet<>();
+        // Rangos de números según las columnas B, I, N, G y O
+        int[][] columnRanges = new int[][]{
+            {1, 15},
+            {16, 30},
+            {31, 45},
+            {46, 60},
+            {61, 75}
+        };
+
+        Set<Integer>[] usedNumbers = new HashSet[width];
+        for (int i = 0; i < width; i++) {
+            usedNumbers[i] = new HashSet<>();
+        }
+
         Random random = new Random();
 
         for (int i = 0; i < width; i++) {
@@ -52,10 +65,10 @@ public class BingoTableModel {
                 } else {
                     int randomNumber;
                     do {
-                        randomNumber = random.nextInt(GlobalData.maxNumber - GlobalData.minNumber + 1) + GlobalData.minNumber;
-                    } while (usedNumbers.contains(randomNumber));
+                        randomNumber = random.nextInt(columnRanges[i][1] - columnRanges[i][0] + 1) + columnRanges[i][0];
+                    } while (usedNumbers[i].contains(randomNumber));
 
-                    usedNumbers.add(randomNumber);
+                    usedNumbers[i].add(randomNumber);
                     table[i][j] = randomNumber;
                 }
             }
